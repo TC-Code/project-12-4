@@ -13,7 +13,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     xhr.open("GET", url);
     xhr.addEventListener("load", function() {
       var response = JSON.parse(xhr.response);
-      if (!response || !response.value) throw new Error(alert("Joke / value not exist!"));
+      if (!response || !response.value) try {
+        throw new Error("Joke / value not exist!");
+      } catch (e) {
+        $("#joke").text(e.name + ': ' + e.message);
+        return
+      }
       paragraph.innerHTML = response.value.joke;
     });
     xhr.send();
