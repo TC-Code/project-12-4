@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     xhr.addEventListener("load", function() {
       var response = JSON.parse(xhr.response);
       paragraph.innerHTML = response.value.joke;
+      if (response.value.joke === "" || response.value === undefined)
+        throw new Error(alert("Joke / value not exist!"));
     });
     xhr.send();
   }
